@@ -2,11 +2,17 @@ package org.apache.jmeter.assertions.gui;
 
 import org.apache.jmeter.assertions.JSONAssertion;
 import org.apache.jmeter.testelement.TestElement;
+import org.apache.jmeter.util.JMeterUtils;
 import org.apache.jorphan.gui.layout.VerticalLayout;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class JSONAssertionGui extends AbstractAssertionGui {
 
     private static final long serialVersionUID = 240L;
+
+    private JTextField parameter1;
 
     /**
      * The constructor.
@@ -47,6 +53,22 @@ public class JSONAssertionGui extends AbstractAssertionGui {
         setLayout(new VerticalLayout(5, VerticalLayout.BOTH, VerticalLayout.TOP));
         setBorder(makeBorder());
 
-        add(makeTitlePanel());
+        Box box = Box.createVerticalBox();
+        box.add(makeTitlePanel());
+        box.add(createParameterPanel());
+        add(box, BorderLayout.NORTH);
+    }
+
+    private JPanel createParameterPanel() {
+        JLabel label = new JLabel("parameter1"); //$NON-NLS-1$
+
+        parameter1 = new JTextField(10);
+        parameter1.setName("parameter1");
+        label.setLabelFor(parameter1);
+
+        JPanel parameterPanel = new JPanel(new BorderLayout(5, 0));
+        parameterPanel.add(label, BorderLayout.WEST);
+        parameterPanel.add(parameter1, BorderLayout.CENTER);
+        return parameterPanel;
     }
 }
